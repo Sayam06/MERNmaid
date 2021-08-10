@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mernmaid/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   final emailController = TextEditingController();
@@ -350,26 +351,31 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(
                     height: 40,
                   ),
-                  RichText(
-                    text: TextSpan(
-                        text: 'OR ',
-                        style: TextStyle(
-                          fontFamily: "Montserrat",
-                          fontSize: 12,
-                          fontWeight: FontWeight.w900,
-                          color: Color.fromRGBO(247, 140, 140, 1),
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'Create an account',
-                            style: TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 12,
-                              fontWeight: FontWeight.w900,
-                              color: Color.fromRGBO(174, 174, 174, 1),
-                            ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, "/sign_up");
+                    },
+                    child: RichText(
+                      text: TextSpan(
+                          text: 'OR ',
+                          style: TextStyle(
+                            fontFamily: "Montserrat",
+                            fontSize: 12,
+                            fontWeight: FontWeight.w900,
+                            color: Color.fromRGBO(247, 140, 140, 1),
                           ),
-                        ]),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: 'Create an account',
+                              style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 12,
+                                fontWeight: FontWeight.w900,
+                                color: Color.fromRGBO(174, 174, 174, 1),
+                              ),
+                            ),
+                          ]),
+                    ),
                   ),
                 ],
               ),

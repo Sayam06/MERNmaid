@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mernmaid/login_screen.dart';
+import 'package:mernmaid/signup_screen.dart';
+import 'package:page_transition/page_transition.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,7 +26,22 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: LoginScreen(),
-      routes: {},
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case "/sign_up":
+            return PageTransition(
+              child: SignUpScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+            break;
+          default:
+            return null;
+        }
+      },
+      routes: {
+        SignUpScreen.routeName: (ctx) => SignUpScreen(),
+      },
     );
   }
 }
