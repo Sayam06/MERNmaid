@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mernmaid/dashboard/screens/home.dart';
 import 'package:mernmaid/login_screen.dart';
 import 'package:mernmaid/signup_screen.dart';
 import 'package:page_transition/page_transition.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
       },
       routes: {
         SignUpScreen.routeName: (ctx) => SignUpScreen(),
+        Home.routeName: (ctx) => Home(),
       },
     );
   }

@@ -1,9 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:mernmaid/dashboard/screens/home.dart';
+import 'package:mernmaid/google_signin_api.dart';
 import 'package:mernmaid/signup_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
+
+  void customLaunch(command) async {
+    await launch(command);
+  }
+
+  int buttonPress = 1;
+
+  Future sendData(String? name, String id, BuildContext context) async {
+    final String url = "https://mernmaid.herokuapp.com/auth/android/google";
+    final response = await http.post(Uri.parse(url), body: {
+      "username": name,
+      "googleId": id,
+    });
+    print(response.body);
+    Navigator.of(context).pushReplacementNamed(Home.routeName);
+  }
+
+  Future signIn(BuildContext context) async {
+    final user = await GoogleSignInApi.login();
+    if (user == null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Sign in Failed")));
+    } else {
+      sendData(user.displayName, user.id, context);
+    }
+  }
 
   final Shader loginGradient = LinearGradient(
     colors: <Color>[
@@ -29,6 +64,25 @@ class LoginScreen extends StatelessWidget {
           color: Color.fromRGBO(209, 205, 199, 0.5),
           blurRadius: 7.0,
           offset: Offset(3, 3),
+        ),
+      ]);
+
+  final oauthOnTapDecoration = BoxDecoration(
+      // color: Colors.black,
+      color: Color.fromRGBO(239, 238, 238, 1),
+      borderRadius: BorderRadius.all(
+        Radius.circular(40),
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: Color.fromRGBO(255, 255, 255, 0.5),
+          blurRadius: 7.0,
+          offset: Offset(3, 3),
+        ),
+        BoxShadow(
+          color: Color.fromRGBO(209, 205, 199, 0.5),
+          blurRadius: 6.0,
+          offset: Offset(-4, -4),
         ),
       ]);
 
@@ -81,40 +135,83 @@ class LoginScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          height: 40,
-                          width: 110,
-                          decoration: oauthDecoration,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                height: 30,
-                                child: Image.asset(
-                                  "assets/images/google.png",
+                        GestureDetector(
+                          onTapDown: (_) {
+                            setState(() {
+                              buttonPress = 2;
+                            });
+                          },
+                          onTapUp: (_) {
+                            signIn(context);
+                            setState(() {
+                              buttonPress = 1;
+                            });
+                          },
+                          onTapCancel: () {
+                            setState(() {
+                              buttonPress = 1;
+                            });
+                          },
+                          child: Container(
+                            height: 40,
+                            width: 110,
+                            decoration: buttonPress == 2
+                                ? oauthOnTapDecoration
+                                : buttonPress == 1
+                                    ? oauthDecoration
+                                    : oauthDecoration,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 30,
+                                  child: Image.asset(
+                                    "assets/images/google.png",
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(
                           width: 20,
                         ),
-                        Container(
-                          decoration: oauthDecoration,
-                          height: 40,
-                          width: 110,
-                          child: Row(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                height: 30,
-                                child: Image.asset(
-                                  "assets/images/github.png",
+                        GestureDetector(
+                          onTapDown: (_) {
+                            setState(() {
+                              buttonPress = 4;
+                            });
+                          },
+                          onTapUp: (_) {
+                            setState(() {
+                              buttonPress = 3;
+                            });
+                          },
+                          onTapCancel: () {
+                            setState(() {
+                              buttonPress = 1;
+                            });
+                          },
+                          child: Container(
+                            decoration: buttonPress == 4
+                                ? oauthOnTapDecoration
+                                : buttonPress == 3
+                                    ? oauthDecoration
+                                    : oauthDecoration,
+                            height: 40,
+                            width: 110,
+                            child: Row(
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 30,
+                                  child: Image.asset(
+                                    "assets/images/github.png",
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ],
