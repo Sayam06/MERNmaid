@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.blue,
+        accentColor: Color.fromRGBO(247, 140, 140, 1),
       ),
       home: LoginScreen(),
       onGenerateRoute: (settings) {

@@ -58,6 +58,12 @@ flutter:
     - assets/images/github.png
     - assets/images/password.png
     - assets/images/user.png
+    - assets/images/tiles_background.jpg
+    - assets/images/user_dashboard.png
+    - assets/images/hamburger.png
+    - assets/images/whiteboard_icon.png
+    - assets/images/monitor_icon.png
+    - assets/images/calendar_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
