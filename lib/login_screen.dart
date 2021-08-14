@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mernmaid/dashboard/screens/home.dart';
+import 'package:mernmaid/github_code_screen.dart';
 import 'package:mernmaid/google_signin_api.dart';
 import 'package:mernmaid/signup_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
+  static const routeName = "/login_screen";
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -28,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
       "googleId": id,
     });
     print(response.body);
-    Navigator.of(context).pushReplacementNamed(Home.routeName);
+    Navigator.pushNamedAndRemoveUntil(context, "/dashboard", (r) => false);
   }
 
   Future signIn(BuildContext context) async {
@@ -183,13 +185,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             });
                           },
                           onTapUp: (_) {
+                            // customLaunch("https://mernmaid.herokuapp.com/auth/github");
+                            Navigator.of(context).pushNamed(GithubCodeScreen.routeName);
                             setState(() {
                               buttonPress = 3;
                             });
                           },
                           onTapCancel: () {
                             setState(() {
-                              buttonPress = 1;
+                              buttonPress = 3;
                             });
                           },
                           child: Container(

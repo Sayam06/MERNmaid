@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mernmaid/google_signin_api.dart';
 
 class Home extends StatelessWidget {
-  static const routeName = "/home";
-
-  //  Future signOut() async {
-  //   await GoogleSignInApi.logout();
-  // }
+  static const routeName = "/dashboard";
 
   @override
   Widget build(BuildContext context) {

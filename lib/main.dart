@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mernmaid/dashboard/screens/home.dart';
+import 'package:mernmaid/github_code_screen.dart';
+import 'package:mernmaid/github_verification_screen.dart';
 import 'package:mernmaid/login_screen.dart';
 import 'package:mernmaid/signup_screen.dart';
 import 'package:page_transition/page_transition.dart';
@@ -36,13 +38,23 @@ class MyApp extends StatelessWidget {
               settings: settings,
             );
             break;
+          case '/github_verification_screen':
+            return PageTransition(
+              child: GitHubVerificationScreen(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+            break;
           default:
             return null;
         }
       },
       routes: {
+        LoginScreen.routeName: (ctx) => LoginScreen(),
         SignUpScreen.routeName: (ctx) => SignUpScreen(),
         Home.routeName: (ctx) => Home(),
+        GithubCodeScreen.routeName: (ctx) => GithubCodeScreen(),
+        GitHubVerificationScreen.routeName: (ctx) => GitHubVerificationScreen(),
       },
     );
   }
